@@ -1,1 +1,1 @@
-web:java $JAVA_OPTS -cp target/classes:target/dependency/* com.example.HelloWorld
+web: java -jar target/odata-0.1.0.jar
