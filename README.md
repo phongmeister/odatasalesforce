@@ -1,7 +1,7 @@
 # OData Boilerplate
 
 xxx
- 
+
 The OData Boilerplate combines OpenUI5 with Spring Boot, OLingo and JPA and allows you to easily and quickly boot up a JVM based OData app based on modeling your data model in using JPA.
 
 For convenience, a base-diagram for the JPA diagram editor has been provided as well. Once your data model is finished, the application with update the database schema of the connected database on first run. After every change and restart, the application will attempt to alter the database schema according to the changes detected in the JPA model.
@@ -37,7 +37,7 @@ To stop the application press control-C
 
 To build a jar run `mvn clean package`
 
-To run the jar `mvn -jar target/odata-0.1.0.jar`
+To run the jar `mvn -jar target/odata-0.1.0.jar` or `java -jar target/odata-0.1.0.jar`
 
 ## HANA Cloud Platform
 
@@ -61,19 +61,19 @@ The only reason that the repository package is there, is because I liked the boi
 
 There are some limited (for now) features to add annotations allowing you to leverage smart controls and templates. At this moment it is possible to add annotations on attribute level by applying the `@Sap` annotation and/or @SAPLineItem just before the attribute definition, e.g.:
 
-	@Sap(filterable=true, sortable=true)
-	@SAPLineItem
-	private String lastName;
+    @Sap(filterable=true, sortable=true)
+    @SAPLineItem
+    private String lastName;
 
 The `sap:label` annotation with a language dependent label is automatically added, if the label has been defined in an `i18n` table in the resources directory. i18n-tags should be formatted according to <entity>.<attribut> notation, for example: `Member.LastName=Achternaam`. A sample i18n table has been provided in the boilerplate.
 
-Applying the @SAP annotation  will result in SAP annotations being added in an almost similar to what SAP Gateway would do:
+Applying the @SAP annotation will result in SAP annotations being added in an almost similar to what SAP Gateway would do:
 
-	<Property
-		Name="LastName" Type="Edm.String"
-		sap:label="Achternaam"
-		sap:filterable="true" sap:updatable="false" sap:sortable="true" sap:creatable="false"
-		xmlns:sap="http://www.sap.com/Protocols/SAPData"/>
+    <Property
+    	Name="LastName" Type="Edm.String"
+    	sap:label="Achternaam"
+    	sap:filterable="true" sap:updatable="false" sap:sortable="true" sap:creatable="false"
+    	xmlns:sap="http://www.sap.com/Protocols/SAPData"/>
 
 Applying the @SAPLineItem annotation will add the annotated property to the UI.LineItem section, which contains the default fields show in the Smart Table control.
 

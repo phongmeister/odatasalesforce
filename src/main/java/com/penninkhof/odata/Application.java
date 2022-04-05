@@ -6,7 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.web.SpringBootServletInitializer;
+//import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
 import com.penninkhof.odata.entities.Member;
@@ -17,10 +18,10 @@ public class Application extends SpringBootServletInitializer {
 
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(Application.class);
-    }
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(Application.class);
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class);
@@ -28,7 +29,7 @@ public class Application extends SpringBootServletInitializer {
 
 	@Bean
 	public CommandLineRunner demo(final MemberRepository repository) {
-	    return new CommandLineRunner() {
+		return new CommandLineRunner() {
 			public void run(String... args) throws Exception {
 				if (repository.count() == 0) {
 					log.info("Database is still empty. Adding some sample records");
@@ -39,10 +40,8 @@ public class Application extends SpringBootServletInitializer {
 					repository.save(new Member(5, "Michelle", "Dessler"));
 					repository.save(new Member(6, "Test", "Odata"));
 				}
-	        }
-	    };
+			}
+		};
 	}
-	
-	
 
 }
