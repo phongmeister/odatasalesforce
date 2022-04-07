@@ -14,7 +14,7 @@
 	</parent>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>1.7</java.version>
 		<cxf.version>3.5.1</cxf.version>
 		<olingo.version>2.0.10</olingo.version>
 	</properties>
@@ -38,8 +38,8 @@
 					<!-- Some exclusions are necessary to make Spring Boot run on HCP. -->
 					<exclusions>
 						<exclusion>
-							<groupId>org.springframework.boot</groupId>
 							<artifactId>spring-boot-starter-tomcat</artifactId>
+							<groupId>org.springframework.boot</groupId>
 						</exclusion>
 						<exclusion>
 							<groupId>org.apache.tomcat.embed</groupId>
@@ -66,6 +66,12 @@
 					<groupId>org.apache.olingo</groupId>
 					<artifactId>olingo-odata2-jpa-processor-api</artifactId>
 					<version>${olingo.version}</version>
+					<exclusions>
+						<exclusion>
+							<artifactId>javax.persistence</artifactId>
+							<groupId>org.eclipse.persistence</groupId>
+						</exclusion>
+					</exclusions>
 				</dependency>
 				<dependency>
 					<groupId>org.apache.olingo</groupId>
@@ -84,6 +90,31 @@
 					<scope>provided</scope>
 				</dependency>
 			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy-resources</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${basedir}/target/classes/static</outputDirectory>
+									<resources>
+										<resource>
+											<directory>src/main/webapp</directory>
+											<filtering>true</filtering>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 
 		<!-- Self-contained JAR -->
@@ -211,6 +242,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.docx4j</groupId>
+			<artifactId>docx4j</artifactId>
+			<version>3.2.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -237,5 +283,6 @@
 			<url>https://repo.spring.io/libs-release</url>
 		</pluginRepository>
 	</pluginRepositories>
+
 
 </project>
