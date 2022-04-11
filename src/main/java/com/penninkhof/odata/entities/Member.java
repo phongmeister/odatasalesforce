@@ -7,6 +7,7 @@ import javax.persistence.Table;
 import com.penninkhof.odata.annotations.SAPLineItem;
 import com.penninkhof.odata.annotations.Sap;
 
+
 @Entity
 @Table(name="members")
 public class Member {

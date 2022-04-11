@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import com.penninkhof.odata.entities.Member;
 import com.penninkhof.odata.repository.MemberRepository;
 
+import java.util.List;
+
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
@@ -39,6 +41,8 @@ public class Application extends SpringBootServletInitializer {
 					repository.save(new Member(4, "David", "Palmer"));
 					repository.save(new Member(5, "Michelle", "Dessler"));
 					repository.save(new Member(6, "Test", "Odata"));
+					List<Member> tutorialData = repository.findByLastName("Test");
+					log.info("Database is still empty. Adding some sample records" + tutorialData);
 				}
 			}
 		};
